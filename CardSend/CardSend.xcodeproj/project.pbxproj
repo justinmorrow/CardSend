@@ -12,8 +12,8 @@
 		DF04D1751C818DDA00D7409E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF04D1731C818DDA00D7409E /* LaunchScreen.storyboard */; };
 		DF04D17D1C818FD100D7409E /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D17C1C818FD100D7409E /* ContactViewController.swift */; };
 		DF04D17F1C818FF300D7409E /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D17E1C818FF300D7409E /* TransactionViewController.swift */; };
-		DF04D1811C826FBA00D7409E /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D1801C826FBA00D7409E /* CheckmarkView.swift */; };
 		DF04D1831C82AC4600D7409E /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D1821C82AC4600D7409E /* CircleIndicatorView.swift */; };
+		DF10D0571C82E27A008F24F5 /* CompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF10D0561C82E27A008F24F5 /* CompletionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +24,8 @@
 		DF04D1761C818DDA00D7409E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF04D17C1C818FD100D7409E /* ContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		DF04D17E1C818FF300D7409E /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
-		DF04D1801C826FBA00D7409E /* CheckmarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
 		DF04D1821C82AC4600D7409E /* CircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleIndicatorView.swift; sourceTree = "<group>"; };
+		DF10D0561C82E27A008F24F5 /* CompletionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +64,7 @@
 				DF04D1761C818DDA00D7409E /* Info.plist */,
 				DF04D17C1C818FD100D7409E /* ContactViewController.swift */,
 				DF04D17E1C818FF300D7409E /* TransactionViewController.swift */,
-				DF04D1801C826FBA00D7409E /* CheckmarkView.swift */,
+				DF10D0561C82E27A008F24F5 /* CompletionViewController.swift */,
 				DF04D1821C82AC4600D7409E /* CircleIndicatorView.swift */,
 			);
 			path = CardSend;
@@ -143,8 +143,8 @@
 			files = (
 				DF04D1831C82AC4600D7409E /* CircleIndicatorView.swift in Sources */,
 				DF04D16B1C818DDA00D7409E /* AppDelegate.swift in Sources */,
+				DF10D0571C82E27A008F24F5 /* CompletionViewController.swift in Sources */,
 				DF04D17F1C818FF300D7409E /* TransactionViewController.swift in Sources */,
-				DF04D1811C826FBA00D7409E /* CheckmarkView.swift in Sources */,
 				DF04D17D1C818FD100D7409E /* ContactViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +285,7 @@
 				DF04D17B1C818DDA00D7409E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

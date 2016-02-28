@@ -11,26 +11,29 @@ import UIKit
 class CircleIndicatorView: UIView {
     
     let indicatorLayer = CAShapeLayer()
+    let checkmarkLayer = CAShapeLayer()
     var arcPath = UIBezierPath()
     var smallPath = UIBezierPath()
+    
+    let initLineWidth: CGFloat = 8.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        indicatorLayer.bounds = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
-        indicatorLayer.strokeColor = UIColor.blueColor().CGColor
-        indicatorLayer.lineWidth = 1.0
-        indicatorLayer.fillColor = nil
-        indicatorLayer.strokeStart = 0.0
-        indicatorLayer.strokeEnd = 0.9
         self.layer.addSublayer(indicatorLayer)
-
-        let radius = CGFloat(30.0)
-        arcPath = UIBezierPath(arcCenter: self.center, radius: radius, startAngle: 0.0, endAngle: CGFloat(2*M_PI), clockwise: true)
-        indicatorLayer.path = arcPath.CGPath
-        smallPath = UIBezierPath(arcCenter: self.center, radius: radius/2, startAngle: 0.0, endAngle: CGFloat(2*M_PI), clockwise: true)
+        indicatorLayer.strokeColor = UIColor(red: 0.0, green: 0.90, blue: 0.40, alpha: 0.0).CGColor
+        indicatorLayer.lineWidth = initLineWidth
+        indicatorLayer.fillColor = nil
+        indicatorLayer.strokeStart = 1.0
+        indicatorLayer.strokeEnd = 1.0
+        indicatorLayer.lineCap = kCALineCapRound
         
-        indicatorLayer.path = arcPath.CGPath
+        self.layer.addSublayer(checkmarkLayer)
+        checkmarkLayer.strokeColor = UIColor.redColor().CGColor
+        checkmarkLayer.lineWidth = 10.0
+        checkmarkLayer.fillColor = nil
+        checkmarkLayer.strokeStart = 0.0
+        checkmarkLayer.strokeEnd = 0.0
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -43,43 +46,110 @@ class CircleIndicatorView: UIView {
     }
     
     func updatePaths() {
-        indicatorLayer.position = self.center
+        arcPath = UIBezierPath(ovalInRect: bounds.insetBy(dx: initLineWidth / 2.0, dy: initLineWidth / 2.0))
+        smallPath = UIBezierPath(ovalInRect: bounds.insetBy(dx: bounds.width / 4.0, dy: bounds.height / 4.0))
+        indicatorLayer.path = arcPath.CGPath
+        indicatorLayer.bounds = bounds
+        indicatorLayer.position = CGPoint(x: bounds.midX, y: bounds.midY)
+        
+        let viewMidX = self.bounds.midX
+        let viewMidY = self.bounds.midY
+        
+        // Scaling factor
+        let k = CGFloat(20.0)
+        
+        let pt1x = viewMidX - k
+        let pt1y = viewMidX - k
+        let pt2x = viewMidX
+        let pt2y = viewMidY
+        let pt3x = viewMidX + 2.25*k
+        let pt3y = viewMidY - 2.25*k
+        
+        let checkMidXOffset = -(pt3x - pt2x)*1/3
+        let checkMidYOffset = (pt2y - pt1y)
+        
+        let checkmarkPath = UIBezierPath()
+        checkmarkPath.moveToPoint(CGPoint(x: pt1x + checkMidXOffset, y: pt1y + checkMidYOffset))
+        checkmarkPath.addLineToPoint(CGPoint(x: pt2x + checkMidXOffset, y: pt2y + checkMidYOffset))
+        checkmarkPath.addLineToPoint(CGPoint(x: pt3x + checkMidXOffset, y: pt3y + checkMidYOffset))
+        
+        checkmarkLayer.path = checkmarkPath.CGPath
     }
     
-    func animateSpin() {
+    func animateDrawAndSpin() {
+        
+//        let drawAnimation = CABasicAnimation(keyPath: "strokeStart")
+//        drawAnimation.beginTime = CACurrentMediaTime()
+//        drawAnimation.duration = 2.0
+//        drawAnimation.toValue = 0.15
+//        drawAnimation.fillMode = kCAFillModeForwards
+//        drawAnimation.removedOnCompletion = false
+//        drawAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+//        indicatorLayer.addAnimation(drawAnimation, forKey: "draw")
+        
+        let fadeInAnimation = CABasicAnimation(keyPath: "strokeColor")
+        fadeInAnimation.beginTime = CACurrentMediaTime()
+        fadeInAnimation.duration = 1.0
+        fadeInAnimation.toValue = UIColor(red: 0.0, green: 0.90, blue: 0.40, alpha: 1.0).CGColor
+        fadeInAnimation.fillMode = kCAFillModeForwards
+        fadeInAnimation.removedOnCompletion = false
+        fadeInAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+        indicatorLayer.addAnimation(fadeInAnimation, forKey: "fadeIn")
+        
         let spinAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        spinAnimation.beginTime = CACurrentMediaTime() + 1.0
-        spinAnimation.duration = 2.0
+        spinAnimation.beginTime = CACurrentMediaTime()
+        spinAnimation.duration = 2.1
         spinAnimation.toValue = CGFloat(2.0*M_PI)
         spinAnimation.cumulative = true
         spinAnimation.repeatCount = Float.infinity
         indicatorLayer.addAnimation(spinAnimation, forKey: "spin")
+        
     }
     
     func animateFillAndCheck() {
+        
         let closeAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        closeAnimation.beginTime = CACurrentMediaTime() + 3.0
-        closeAnimation.duration = 1.0
+        closeAnimation.duration = 0.4
         closeAnimation.fromValue = 0.9
         closeAnimation.toValue = 1.0
         closeAnimation.fillMode = kCAFillModeForwards
         closeAnimation.removedOnCompletion = false
-        indicatorLayer.addAnimation(closeAnimation, forKey: "close")
         
         let fillAnimation = CABasicAnimation(keyPath: "lineWidth")
-        fillAnimation.beginTime = CACurrentMediaTime() + 3.0
-        fillAnimation.duration = 1.0
-        fillAnimation.toValue = 30.0
-        fillAnimation.fillMode = kCAFillModeForwards
-        fillAnimation.removedOnCompletion = false
-        indicatorLayer.addAnimation(fillAnimation, forKey: "fill")
+        fillAnimation.toValue = bounds.width / 2.0
         
         let shrinkAnimation = CABasicAnimation(keyPath: "path")
-        shrinkAnimation.beginTime = CACurrentMediaTime() + 3.0
-        shrinkAnimation.duration = 1.0
         shrinkAnimation.toValue = smallPath.CGPath
-        shrinkAnimation.fillMode = kCAFillModeForwards
-        shrinkAnimation.removedOnCompletion = false
-        indicatorLayer.addAnimation(shrinkAnimation, forKey: "shrink")
+        
+        let fillAnimationGroup = CAAnimationGroup()
+        fillAnimationGroup.animations = [
+            fillAnimation,
+            shrinkAnimation
+        ]
+        fillAnimationGroup.beginTime = 0.4
+        fillAnimationGroup.fillMode = kCAFillModeForwards
+        fillAnimationGroup.removedOnCompletion = false
+        fillAnimationGroup.duration = 0.6
+        
+        let closeAndFillGroup = CAAnimationGroup()
+        closeAndFillGroup.animations = [closeAnimation, fillAnimationGroup]
+        closeAndFillGroup.beginTime = CACurrentMediaTime() + 5.0
+        closeAndFillGroup.duration = 1.0
+        closeAndFillGroup.speed = 4.0
+        closeAndFillGroup.fillMode = kCAFillModeForwards
+        closeAndFillGroup.removedOnCompletion = false
+        closeAndFillGroup.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        indicatorLayer.addAnimation(closeAndFillGroup, forKey: "closeAndFill")
+        
+        let checkAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        checkAnimation.beginTime = CACurrentMediaTime() + 6.0
+        checkAnimation.duration = 0.4
+        checkAnimation.fromValue = 0.0
+        checkAnimation.toValue = 1.0
+        checkAnimation.fillMode = kCAFillModeForwards
+        checkAnimation.removedOnCompletion = false
+        checkAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+        checkmarkLayer.addAnimation(checkAnimation, forKey: "check")
+        
     }
 }

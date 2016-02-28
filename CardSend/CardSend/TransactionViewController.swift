@@ -10,13 +10,14 @@ import UIKit
 
 class TransactionViewController: UIViewController {
     
-    let checkmarkView = CheckmarkView()
     let circleIndicatorView = CircleIndicatorView()
+    
+    let numberTextField = UITextField()
+    let sendButton = UIButton(type: .System)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.blueColor()
-        circleIndicatorView.backgroundColor = UIColor.blackColor()
+        view.backgroundColor = UIColor.whiteColor()
         
         // Define and add cancelButton to view
         let cancelButton = UIButton(type: .System)
@@ -26,24 +27,19 @@ class TransactionViewController: UIViewController {
         view.addSubview(cancelButton)
         
         // Define and add numberTextField to view
-        let numberTextField = UITextField()
         numberTextField.translatesAutoresizingMaskIntoConstraints = false
         numberTextField.backgroundColor = UIColor.whiteColor()
         numberTextField.keyboardType = UIKeyboardType.PhonePad
         numberTextField.textAlignment = NSTextAlignment.Center
+        numberTextField.layer.borderWidth = 1.0
+        numberTextField.layer.borderColor = UIColor.grayColor().CGColor
         view.addSubview(numberTextField)
         
         // Define and add sendButton to view
-        let sendButton = UIButton(type: .System)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.setTitle("Send", forState: .Normal)
         sendButton.addTarget(self, action: "sendFormData", forControlEvents: .TouchUpInside)
         view.addSubview(sendButton)
-        
-        // Create and add checkmarkView to view
-        checkmarkView.translatesAutoresizingMaskIntoConstraints = false
-        checkmarkView.alpha = 0.0
-        self.view.addSubview(checkmarkView)
         
         // Create and add circleIndicatorView to view
         circleIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,11 +63,7 @@ class TransactionViewController: UIViewController {
             circleIndicatorView.widthAnchor.constraintEqualToConstant(100.0),
             circleIndicatorView.heightAnchor.constraintEqualToAnchor(circleIndicatorView.widthAnchor),
             
-            checkmarkView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor),
-            checkmarkView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor),
-            checkmarkView.widthAnchor.constraintEqualToConstant(100.0),
-            checkmarkView.heightAnchor.constraintEqualToAnchor(checkmarkView.widthAnchor)
-        ])
+            ])
     }
     
     func dismissTransactionView() {
@@ -79,13 +71,15 @@ class TransactionViewController: UIViewController {
     }
     
     func sendFormData() {
+        numberTextField.hidden = true
+        sendButton.hidden = true
+        
+        let phoneNumber = numberTextField.text
+        print(phoneNumber!)
+        
         circleIndicatorView.alpha = 1.0
-        circleIndicatorView.animateSpin()
-    }
-    
-    func showCheckmarkView() {
-        checkmarkView.alpha = 1.0
-        checkmarkView.animate()
-    }
+        circleIndicatorView.animateDrawAndSpin()
+//        circleIndicatorView.animateFillAndCheck()
 
+    }
 }
