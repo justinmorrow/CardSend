@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import Contacts
 
-class DataPoster {
+class ContactPoster {
     
     let session = NSURLSession.sharedSession()
     
-    func postData(data: NSData, completionBlock: (NSError?) -> Void) {
+    func postData(contact: CNContact, completionBlock: (NSError?) -> Void) {
         
         let url = NSURL(string: "http://sheltered-bastion-56935.herokuapp.com")!
         
         let request = NSMutableURLRequest(URL: url)
         
         request.setValue("application/x-vcard", forHTTPHeaderField: "Content-Type")
-        request.HTTPBody = data
+        request.HTTPBody = try! CNContactVCardSerialization.dataWithContacts([contact])
         
         let task = session.dataTaskWithURL(url) { data, response, error in
             completionBlock(error)

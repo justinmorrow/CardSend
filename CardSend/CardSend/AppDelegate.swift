@@ -19,14 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         window.makeKeyAndVisible()
         
-        let person = Person(firstName: "Tim", lastName: "Cook", phoneNumber: "+12484967669", email: "tcook@apple.com", image: UIImage(named: "Tim.jpg")!)
-        
-        let poster = PersonPoster()
-        
-        poster.postPerson(person) { error in
-            print(error)
-        }
-        
         return true
     }
 }
