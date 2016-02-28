@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		DF04D16B1C818DDA00D7409E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D16A1C818DDA00D7409E /* AppDelegate.swift */; };
-		DF04D16D1C818DDA00D7409E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D16C1C818DDA00D7409E /* ViewController.swift */; };
-		DF04D1701C818DDA00D7409E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF04D16E1C818DDA00D7409E /* Main.storyboard */; };
 		DF04D1721C818DDA00D7409E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF04D1711C818DDA00D7409E /* Assets.xcassets */; };
 		DF04D1751C818DDA00D7409E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF04D1731C818DDA00D7409E /* LaunchScreen.storyboard */; };
+		DF04D17D1C818FD100D7409E /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D17C1C818FD100D7409E /* ContactViewController.swift */; };
+		DF04D17F1C818FF300D7409E /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D17E1C818FF300D7409E /* TransactionViewController.swift */; };
+		DF04D1811C826FBA00D7409E /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D1801C826FBA00D7409E /* CheckmarkView.swift */; };
+		DF04D1831C82AC4600D7409E /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF04D1821C82AC4600D7409E /* CircleIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DF04D1671C818DDA00D7409E /* CardSend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardSend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF04D16A1C818DDA00D7409E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DF04D16C1C818DDA00D7409E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DF04D16F1C818DDA00D7409E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DF04D1711C818DDA00D7409E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF04D1741C818DDA00D7409E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF04D1761C818DDA00D7409E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF04D17C1C818FD100D7409E /* ContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
+		DF04D17E1C818FF300D7409E /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
+		DF04D1801C826FBA00D7409E /* CheckmarkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
+		DF04D1821C82AC4600D7409E /* CircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +59,13 @@
 			isa = PBXGroup;
 			children = (
 				DF04D16A1C818DDA00D7409E /* AppDelegate.swift */,
-				DF04D16C1C818DDA00D7409E /* ViewController.swift */,
-				DF04D16E1C818DDA00D7409E /* Main.storyboard */,
 				DF04D1711C818DDA00D7409E /* Assets.xcassets */,
 				DF04D1731C818DDA00D7409E /* LaunchScreen.storyboard */,
 				DF04D1761C818DDA00D7409E /* Info.plist */,
+				DF04D17C1C818FD100D7409E /* ContactViewController.swift */,
+				DF04D17E1C818FF300D7409E /* TransactionViewController.swift */,
+				DF04D1801C826FBA00D7409E /* CheckmarkView.swift */,
+				DF04D1821C82AC4600D7409E /* CircleIndicatorView.swift */,
 			);
 			path = CardSend;
 			sourceTree = "<group>";
@@ -125,7 +131,6 @@
 			files = (
 				DF04D1751C818DDA00D7409E /* LaunchScreen.storyboard in Resources */,
 				DF04D1721C818DDA00D7409E /* Assets.xcassets in Resources */,
-				DF04D1701C818DDA00D7409E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,22 +141,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF04D16D1C818DDA00D7409E /* ViewController.swift in Sources */,
+				DF04D1831C82AC4600D7409E /* CircleIndicatorView.swift in Sources */,
 				DF04D16B1C818DDA00D7409E /* AppDelegate.swift in Sources */,
+				DF04D17F1C818FF300D7409E /* TransactionViewController.swift in Sources */,
+				DF04D1811C826FBA00D7409E /* CheckmarkView.swift in Sources */,
+				DF04D17D1C818FD100D7409E /* ContactViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DF04D16E1C818DDA00D7409E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DF04D16F1C818DDA00D7409E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DF04D1731C818DDA00D7409E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
