@@ -9,10 +9,14 @@
 import UIKit
 
 class CompletionViewController: UIViewController {
+    
+    let circleIndicatorView = CircleIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let circleIndicatorView = CircleIndicatorView()
+        self.view.backgroundColor = UIColor.whiteColor()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelView")
+        circleIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(circleIndicatorView)
         
         // Define constraints
@@ -22,6 +26,22 @@ class CompletionViewController: UIViewController {
             circleIndicatorView.widthAnchor.constraintEqualToConstant(100.0),
             circleIndicatorView.heightAnchor.constraintEqualToAnchor(circleIndicatorView.widthAnchor)
         ])
+        
+        self.circleIndicatorView.animateDrawAndSpin()
+        
+        let time1 = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 2 * Int64(NSEC_PER_SEC))
+        dispatch_after(time1, dispatch_get_main_queue()) {
+            self.circleIndicatorView.animateFillAndCheck()
+        }
+        
+        let time2 = dispatch_time(dispatch_time_t(DISPATCH_TIME_NOW), 3 * Int64(NSEC_PER_SEC))
+        dispatch_after(time2, dispatch_get_main_queue()) {
+            self.cancelView()
+        }
+    }
+    
+    func cancelView() {
+        navigationController?.popViewControllerAnimated(true)
     }
 }
 

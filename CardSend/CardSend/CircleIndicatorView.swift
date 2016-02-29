@@ -15,22 +15,21 @@ class CircleIndicatorView: UIView {
     var arcPath = UIBezierPath()
     var smallPath = UIBezierPath()
     
-    let initLineWidth: CGFloat = 8.0
+    let initLineWidth: CGFloat = 2.0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.layer.addSublayer(indicatorLayer)
-        indicatorLayer.strokeColor = UIColor(red: 0.0, green: 0.90, blue: 0.40, alpha: 0.0).CGColor
+        indicatorLayer.strokeColor = UIColor(red: 0.0, green: 0.90, blue: 0.40, alpha: 1.0).CGColor
         indicatorLayer.lineWidth = initLineWidth
         indicatorLayer.fillColor = nil
-        indicatorLayer.strokeStart = 1.0
-        indicatorLayer.strokeEnd = 1.0
-        indicatorLayer.lineCap = kCALineCapRound
+        indicatorLayer.strokeStart = 0.0
+        indicatorLayer.strokeEnd = 0.85
         
         self.layer.addSublayer(checkmarkLayer)
-        checkmarkLayer.strokeColor = UIColor.redColor().CGColor
-        checkmarkLayer.lineWidth = 10.0
+        checkmarkLayer.strokeColor = UIColor.whiteColor().CGColor
+        checkmarkLayer.lineWidth = 8.0
         checkmarkLayer.fillColor = nil
         checkmarkLayer.strokeStart = 0.0
         checkmarkLayer.strokeEnd = 0.0
@@ -43,6 +42,7 @@ class CircleIndicatorView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         updatePaths()
+        
     }
     
     func updatePaths() {
@@ -56,7 +56,7 @@ class CircleIndicatorView: UIView {
         let viewMidY = self.bounds.midY
         
         // Scaling factor
-        let k = CGFloat(20.0)
+        let k = CGFloat(15.0)
         
         let pt1x = viewMidX - k
         let pt1y = viewMidX - k
@@ -87,19 +87,17 @@ class CircleIndicatorView: UIView {
 //        drawAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
 //        indicatorLayer.addAnimation(drawAnimation, forKey: "draw")
         
-        let fadeInAnimation = CABasicAnimation(keyPath: "strokeColor")
-        fadeInAnimation.beginTime = CACurrentMediaTime()
-        fadeInAnimation.duration = 1.0
-        fadeInAnimation.toValue = UIColor(red: 0.0, green: 0.90, blue: 0.40, alpha: 1.0).CGColor
-        fadeInAnimation.fillMode = kCAFillModeForwards
-        fadeInAnimation.removedOnCompletion = false
-        fadeInAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
-        indicatorLayer.addAnimation(fadeInAnimation, forKey: "fadeIn")
+//        let fadeInAnimation = CABasicAnimation(keyPath: "strokeColor")
+//        fadeInAnimation.duration = 1.0
+//        fadeInAnimation.toValue = UIColor(red: 0.0, green: 0.90, blue: 0.40, alpha: 1.0).CGColor
+//        fadeInAnimation.fillMode = kCAFillModeForwards
+//        fadeInAnimation.removedOnCompletion = false
+//        fadeInAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+//        indicatorLayer.addAnimation(fadeInAnimation, forKey: "fadeIn")
         
         let spinAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        spinAnimation.beginTime = CACurrentMediaTime()
         spinAnimation.duration = 2.1
-        spinAnimation.toValue = CGFloat(2.0*M_PI)
+        spinAnimation.toValue = CGFloat(2.0 * M_PI)
         spinAnimation.cumulative = true
         spinAnimation.repeatCount = Float.infinity
         indicatorLayer.addAnimation(spinAnimation, forKey: "spin")
@@ -122,10 +120,7 @@ class CircleIndicatorView: UIView {
         shrinkAnimation.toValue = smallPath.CGPath
         
         let fillAnimationGroup = CAAnimationGroup()
-        fillAnimationGroup.animations = [
-            fillAnimation,
-            shrinkAnimation
-        ]
+        fillAnimationGroup.animations = [fillAnimation, shrinkAnimation]
         fillAnimationGroup.beginTime = 0.4
         fillAnimationGroup.fillMode = kCAFillModeForwards
         fillAnimationGroup.removedOnCompletion = false
@@ -133,7 +128,6 @@ class CircleIndicatorView: UIView {
         
         let closeAndFillGroup = CAAnimationGroup()
         closeAndFillGroup.animations = [closeAnimation, fillAnimationGroup]
-        closeAndFillGroup.beginTime = CACurrentMediaTime() + 5.0
         closeAndFillGroup.duration = 1.0
         closeAndFillGroup.speed = 4.0
         closeAndFillGroup.fillMode = kCAFillModeForwards
@@ -142,7 +136,7 @@ class CircleIndicatorView: UIView {
         indicatorLayer.addAnimation(closeAndFillGroup, forKey: "closeAndFill")
         
         let checkAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        checkAnimation.beginTime = CACurrentMediaTime() + 6.0
+        checkAnimation.beginTime = CACurrentMediaTime() + 0.3
         checkAnimation.duration = 0.4
         checkAnimation.fromValue = 0.0
         checkAnimation.toValue = 1.0
